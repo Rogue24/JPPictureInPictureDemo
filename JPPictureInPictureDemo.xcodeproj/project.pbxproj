@@ -1,0 +1,404 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A5BB67D24A345EA00368BEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5BB67C24A345EA00368BEF /* AppDelegate.swift */; };
+		1A5BB67F24A345EA00368BEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5BB67E24A345EA00368BEF /* SceneDelegate.swift */; };
+		1A5BB68124A345EA00368BEF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5BB68024A345EA00368BEF /* ViewController.swift */; };
+		1A5BB68424A345EA00368BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5BB68224A345EA00368BEF /* Main.storyboard */; };
+		1A5BB68624A345EA00368BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A5BB68524A345EA00368BEF /* Assets.xcassets */; };
+		1A5BB68924A345EA00368BEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5BB68724A345EA00368BEF /* LaunchScreen.storyboard */; };
+		1A5BB69324A34A8C00368BEF /* JPBounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5BB69224A34A8C00368BEF /* JPBounceButton.swift */; };
+		1ADB1A4224A8A4A200D4509F /* JPPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A4124A8A4A200D4509F /* JPPlayerControlView.swift */; };
+		1ADB1A4524A8D7F000D4509F /* iphone-11-pro.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A4324A8D7F000D4509F /* iphone-11-pro.mp4 */; };
+		1ADB1A4624A8D7F000D4509F /* iphone-11.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A4424A8D7F000D4509F /* iphone-11.mp4 */; };
+		1ADB1A4824A8D8E100D4509F /* iPhone11ProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A4724A8D8E100D4509F /* iPhone11ProViewController.swift */; };
+		1ADB1A5224A8DB5B00D4509F /* iphone-11_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A4F24A8DB5B00D4509F /* iphone-11_0.jpg */; };
+		1ADB1A5324A8DB5B00D4509F /* iphone-11_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5024A8DB5B00D4509F /* iphone-11_1.jpg */; };
+		1ADB1A5424A8DB5B00D4509F /* iphone-11_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5124A8DB5B00D4509F /* iphone-11_2.jpg */; };
+		1ADB1A5624A8DB8B00D4509F /* iPhone11ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5524A8DB8B00D4509F /* iPhone11ViewController.swift */; };
+		1ADB1A5824A8DD5200D4509F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5724A8DD5200D4509F /* README.md */; };
+		1AF55DDF24A47FA5003B6340 /* JPPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF55DDE24A47FA5003B6340 /* JPPlayerView.swift */; };
+		1AF55DE124A481D3003B6340 /* JPPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF55DE024A481D3003B6340 /* JPPlayerViewController.swift */; };
+		1AF55DE924A497D3003B6340 /* iphone-11-pro_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1AF55DE824A497D3003B6340 /* iphone-11-pro_0.jpg */; };
+		1AF55DEB24A49FAC003B6340 /* JPSwiftConstont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF55DEA24A49FAC003B6340 /* JPSwiftConstont.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A5BB67924A345EA00368BEF /* JPPictureInPictureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JPPictureInPictureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A5BB67C24A345EA00368BEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1A5BB67E24A345EA00368BEF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1A5BB68024A345EA00368BEF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1A5BB68324A345EA00368BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1A5BB68524A345EA00368BEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A5BB68824A345EA00368BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1A5BB68A24A345EA00368BEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A5BB69224A34A8C00368BEF /* JPBounceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPBounceButton.swift; sourceTree = "<group>"; };
+		1ADB1A4124A8A4A200D4509F /* JPPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPPlayerControlView.swift; sourceTree = "<group>"; };
+		1ADB1A4324A8D7F000D4509F /* iphone-11-pro.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iphone-11-pro.mp4"; sourceTree = "<group>"; };
+		1ADB1A4424A8D7F000D4509F /* iphone-11.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iphone-11.mp4"; sourceTree = "<group>"; };
+		1ADB1A4724A8D8E100D4509F /* iPhone11ProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhone11ProViewController.swift; sourceTree = "<group>"; };
+		1ADB1A4F24A8DB5B00D4509F /* iphone-11_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_0.jpg"; sourceTree = "<group>"; };
+		1ADB1A5024A8DB5B00D4509F /* iphone-11_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_1.jpg"; sourceTree = "<group>"; };
+		1ADB1A5124A8DB5B00D4509F /* iphone-11_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_2.jpg"; sourceTree = "<group>"; };
+		1ADB1A5524A8DB8B00D4509F /* iPhone11ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhone11ViewController.swift; sourceTree = "<group>"; };
+		1ADB1A5724A8DD5200D4509F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1AF55DDE24A47FA5003B6340 /* JPPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPPlayerView.swift; sourceTree = "<group>"; };
+		1AF55DE024A481D3003B6340 /* JPPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPPlayerViewController.swift; sourceTree = "<group>"; };
+		1AF55DE824A497D3003B6340 /* iphone-11-pro_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11-pro_0.jpg"; sourceTree = "<group>"; };
+		1AF55DEA24A49FAC003B6340 /* JPSwiftConstont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPSwiftConstont.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A5BB67624A345EA00368BEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A5BB67024A345EA00368BEF = {
+			isa = PBXGroup;
+			children = (
+				1ADB1A5724A8DD5200D4509F /* README.md */,
+				1A5BB67B24A345EA00368BEF /* JPPictureInPictureDemo */,
+				1A5BB67A24A345EA00368BEF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A5BB67A24A345EA00368BEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A5BB67924A345EA00368BEF /* JPPictureInPictureDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A5BB67B24A345EA00368BEF /* JPPictureInPictureDemo */ = {
+			isa = PBXGroup;
+			children = (
+				1A5BB67C24A345EA00368BEF /* AppDelegate.swift */,
+				1A5BB67E24A345EA00368BEF /* SceneDelegate.swift */,
+				1A5BB68024A345EA00368BEF /* ViewController.swift */,
+				1AF55DEA24A49FAC003B6340 /* JPSwiftConstont.swift */,
+				1A5BB69224A34A8C00368BEF /* JPBounceButton.swift */,
+				1ADB1A4124A8A4A200D4509F /* JPPlayerControlView.swift */,
+				1AF55DDE24A47FA5003B6340 /* JPPlayerView.swift */,
+				1AF55DE024A481D3003B6340 /* JPPlayerViewController.swift */,
+				1ADB1A4724A8D8E100D4509F /* iPhone11ProViewController.swift */,
+				1ADB1A5524A8DB8B00D4509F /* iPhone11ViewController.swift */,
+				1ADB1A4324A8D7F000D4509F /* iphone-11-pro.mp4 */,
+				1ADB1A4424A8D7F000D4509F /* iphone-11.mp4 */,
+				1AF55DE824A497D3003B6340 /* iphone-11-pro_0.jpg */,
+				1ADB1A4F24A8DB5B00D4509F /* iphone-11_0.jpg */,
+				1ADB1A5024A8DB5B00D4509F /* iphone-11_1.jpg */,
+				1ADB1A5124A8DB5B00D4509F /* iphone-11_2.jpg */,
+				1A5BB68224A345EA00368BEF /* Main.storyboard */,
+				1A5BB68524A345EA00368BEF /* Assets.xcassets */,
+				1A5BB68724A345EA00368BEF /* LaunchScreen.storyboard */,
+				1A5BB68A24A345EA00368BEF /* Info.plist */,
+			);
+			path = JPPictureInPictureDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A5BB67824A345EA00368BEF /* JPPictureInPictureDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A5BB68D24A345EA00368BEF /* Build configuration list for PBXNativeTarget "JPPictureInPictureDemo" */;
+			buildPhases = (
+				1A5BB67524A345EA00368BEF /* Sources */,
+				1A5BB67624A345EA00368BEF /* Frameworks */,
+				1A5BB67724A345EA00368BEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JPPictureInPictureDemo;
+			productName = JPPictureInPictureDemo;
+			productReference = 1A5BB67924A345EA00368BEF /* JPPictureInPictureDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A5BB67124A345EA00368BEF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					1A5BB67824A345EA00368BEF = {
+						CreatedOnToolsVersion = 12.0;
+					};
+				};
+			};
+			buildConfigurationList = 1A5BB67424A345EA00368BEF /* Build configuration list for PBXProject "JPPictureInPictureDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A5BB67024A345EA00368BEF;
+			productRefGroup = 1A5BB67A24A345EA00368BEF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A5BB67824A345EA00368BEF /* JPPictureInPictureDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A5BB67724A345EA00368BEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ADB1A4524A8D7F000D4509F /* iphone-11-pro.mp4 in Resources */,
+				1A5BB68924A345EA00368BEF /* LaunchScreen.storyboard in Resources */,
+				1ADB1A5824A8DD5200D4509F /* README.md in Resources */,
+				1ADB1A5324A8DB5B00D4509F /* iphone-11_1.jpg in Resources */,
+				1ADB1A4624A8D7F000D4509F /* iphone-11.mp4 in Resources */,
+				1AF55DE924A497D3003B6340 /* iphone-11-pro_0.jpg in Resources */,
+				1ADB1A5224A8DB5B00D4509F /* iphone-11_0.jpg in Resources */,
+				1ADB1A5424A8DB5B00D4509F /* iphone-11_2.jpg in Resources */,
+				1A5BB68624A345EA00368BEF /* Assets.xcassets in Resources */,
+				1A5BB68424A345EA00368BEF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A5BB67524A345EA00368BEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AF55DEB24A49FAC003B6340 /* JPSwiftConstont.swift in Sources */,
+				1AF55DDF24A47FA5003B6340 /* JPPlayerView.swift in Sources */,
+				1AF55DE124A481D3003B6340 /* JPPlayerViewController.swift in Sources */,
+				1A5BB68124A345EA00368BEF /* ViewController.swift in Sources */,
+				1A5BB69324A34A8C00368BEF /* JPBounceButton.swift in Sources */,
+				1ADB1A5624A8DB8B00D4509F /* iPhone11ViewController.swift in Sources */,
+				1A5BB67D24A345EA00368BEF /* AppDelegate.swift in Sources */,
+				1A5BB67F24A345EA00368BEF /* SceneDelegate.swift in Sources */,
+				1ADB1A4224A8A4A200D4509F /* JPPlayerControlView.swift in Sources */,
+				1ADB1A4824A8D8E100D4509F /* iPhone11ProViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1A5BB68224A345EA00368BEF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A5BB68324A345EA00368BEF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1A5BB68724A345EA00368BEF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A5BB68824A345EA00368BEF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1A5BB68B24A345EA00368BEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1A5BB68C24A345EA00368BEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1A5BB68E24A345EA00368BEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
+				INFOPLIST_FILE = JPPictureInPictureDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zhoujianping.JPPictureInPictureDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1A5BB68F24A345EA00368BEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
+				INFOPLIST_FILE = JPPictureInPictureDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zhoujianping.JPPictureInPictureDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A5BB67424A345EA00368BEF /* Build configuration list for PBXProject "JPPictureInPictureDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A5BB68B24A345EA00368BEF /* Debug */,
+				1A5BB68C24A345EA00368BEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A5BB68D24A345EA00368BEF /* Build configuration list for PBXNativeTarget "JPPictureInPictureDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A5BB68E24A345EA00368BEF /* Debug */,
+				1A5BB68F24A345EA00368BEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A5BB67124A345EA00368BEF /* Project object */;
+}
