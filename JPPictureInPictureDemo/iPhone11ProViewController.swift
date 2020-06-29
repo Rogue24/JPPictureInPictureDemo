@@ -8,15 +8,16 @@
 import UIKit
 
 class iPhone11ProViewController: JPPlayerViewController {
-
-    var imagePath : String!
+    
+    class func videoPath() -> String {
+        return Bundle.main.path(forResource: "iphone-11-pro", ofType: "mp4")!
+    }
     
     private var _isDidAppear = false
     
     private let bgImgView : UIImageView = {
         let bgImgView = UIImageView()
         bgImgView.backgroundColor = .black
-        bgImgView.alpha = 0
         return bgImgView
     }()
     
@@ -26,7 +27,6 @@ class iPhone11ProViewController: JPPlayerViewController {
         iPhoneLabel.textColor = .white
         iPhoneLabel.text = "iPhone 11 Pro"
         iPhoneLabel.textAlignment = .right
-        iPhoneLabel.alpha = 0
         return iPhoneLabel
     }()
     
@@ -40,43 +40,23 @@ class iPhone11ProViewController: JPPlayerViewController {
         let subLabel = UILabel()
         subLabel.attributedText = attStr
         subLabel.textAlignment = .right
-        subLabel.alpha = 0
         return subLabel
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(bgImgView)
-        
-        playerView = JPPlayerView(frame: CGRect(x: 0, y: jp_navTopMargin_,
-                                                width: jp_portraitScreenWidth_,
-                                                height: jp_portraitScreenWidth_ * (9.0 / 16.0)),
-                                  assetURL: URL(fileURLWithPath: videoPath))
-        playerView.pipCtr?.delegate = self
-        playerView.alpha = 0
-        view.addSubview(playerView)
-        
-        view.addSubview(iPhoneLabel)
-        view.addSubview(subLabel)
+        __setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        
-        navCtr = navigationController
-        
-        if playerVC_ == self {
-            playerView.pipCtr?.stopPictureInPicture()
-        }
         
         if _isDidAppear == true {return}
         
         let bgImgViewW = jp_portraitScreenWidth_
         let bgImgViewY = self.playerView.frame.maxY - jp_scaleValue(60)
         DispatchQueue.global().async {
-            guard let bgImage = UIImage(contentsOfFile: self.imagePath) else {return}
+            guard let bgImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11-pro_0", ofType: "jpg")!) else {return}
             
             let imageWhScale = bgImage.size.height / bgImage.size.width
             let bgImgViewFrame = CGRect(x: 0,
@@ -93,19 +73,6 @@ class iPhone11ProViewController: JPPlayerViewController {
                 }
             }
         }
-    }
-    
-    fileprivate func __loopAnimation(_ isIdentity: Bool, _ delay: TimeInterval) {
-        let transform1 = CGAffineTransform.identity
-        let transform2 = CGAffineTransform(translationX: -50, y: 50).concatenating(CGAffineTransform(scaleX: 0.87, y: 0.87))
-        let fromTransform = isIdentity ? transform2 : transform1
-        let toTransform = isIdentity ? transform1 : transform2
-        bgImgView.transform = fromTransform
-        UIView.animate(withDuration: 50, delay: delay, options: .curveLinear, animations: {
-            self.bgImgView.transform = toTransform
-        }, completion: { (finish) in
-            if finish == true { self.__loopAnimation(!isIdentity, 3.0) }
-        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -137,7 +104,7 @@ class iPhone11ProViewController: JPPlayerViewController {
             }
         })
         
-        playerView.player.play()
+        playerView.player?.play()
         UIView.animate(withDuration: 1.0, animations: {
             self.playerView.alpha = 1
         })
@@ -147,5 +114,42 @@ class iPhone11ProViewController: JPPlayerViewController {
         get {
             return .lightContent
         }
+    }
+}
+
+// MARK:- 私有API
+extension iPhone11ProViewController {
+    fileprivate func __setupUI() {
+        view.backgroundColor = .black
+        
+        videoPath = iPhone11ProViewController.videoPath()
+        createPlayerView(CGRect(x: 0,
+                               y: jp_navTopMargin_,
+                               width: jp_portraitScreenWidth_,
+                               height: jp_portraitScreenWidth_ * (9.0 / 16.0)),
+                         videoURL: URL(fileURLWithPath: videoPath))
+        
+        bgImgView.alpha = 0
+        playerView.alpha = 0
+        iPhoneLabel.alpha = 0
+        subLabel.alpha = 0
+        
+        view.addSubview(bgImgView)
+        view.addSubview(playerView)
+        view.addSubview(iPhoneLabel)
+        view.addSubview(subLabel)
+    }
+    
+    fileprivate func __loopAnimation(_ isIdentity: Bool, _ delay: TimeInterval) {
+        let transform1 = CGAffineTransform.identity
+        let transform2 = CGAffineTransform(translationX: -50, y: 50).concatenating(CGAffineTransform(scaleX: 0.87, y: 0.87))
+        let fromTransform = isIdentity ? transform2 : transform1
+        let toTransform = isIdentity ? transform1 : transform2
+        bgImgView.transform = fromTransform
+        UIView.animate(withDuration: 50, delay: delay, options: .curveLinear, animations: {
+            self.bgImgView.transform = toTransform
+        }, completion: { (finish) in
+            if finish == true { self.__loopAnimation(!isIdentity, 3.0) }
+        })
     }
 }

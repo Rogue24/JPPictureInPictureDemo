@@ -22,29 +22,24 @@ class JPPlayerView: UIView {
         }
     }
     
-    let urlAsset : AVURLAsset
-    let playerItem : AVPlayerItem
-    let player : AVPlayer
-    var timeObserver : Any?
-    
     let controlView : JPPlayerControlView
     
-    var pipCtr : AVPictureInPictureController?
+    var urlAsset : AVURLAsset?
+    var playerItem : AVPlayerItem?
+    var player : AVPlayer?
+    
+    fileprivate var timeObserver : Any?
+    
+    fileprivate weak var pipCtr : AVPictureInPictureController?
     
     fileprivate var _isPlayDone : Bool = false
     
     fileprivate var _timer : Timer?
     
-    init(frame: CGRect, assetURL: URL) {
-        self.urlAsset = AVURLAsset(url: assetURL)
-        self.playerItem = AVPlayerItem(asset: self.urlAsset)
-        self.player = AVPlayer(playerItem: self.playerItem)
+    override init(frame: CGRect) {
         self.controlView = JPPlayerControlView(frame: CGRect(origin: .zero, size: frame.size))
-        
         super.init(frame: frame)
         __setupUI()
-        __setupActionAndObserver()
-        __setupPipCtr()
     }
     
     required init?(coder: NSCoder) {
@@ -54,21 +49,56 @@ class JPPlayerView: UIView {
     deinit {
         __removeTimer()
         
+        if let player = player {
+            NotificationCenter.default.removeObserver(self)
+            
+            player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.rate))
+            
+            if let timeObserver = timeObserver {
+                player.removeTimeObserver(timeObserver)
+                self.timeObserver = nil
+            }
+            
+            player.replaceCurrentItem(with: nil)
+        }
+        
         if let pipCtr = pipCtr {
             pipCtr.removeObserver(self, forKeyPath: #keyPath(AVPictureInPictureController.isPictureInPicturePossible))
             pipCtr.removeObserver(self, forKeyPath: #keyPath(AVPictureInPictureController.isPictureInPictureActive))
         }
-        
-        NotificationCenter.default.removeObserver(self)
-        
-        player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.rate))
-        
-        if let timeObserver = timeObserver {
-            player.removeTimeObserver(timeObserver)
-            self.timeObserver = nil
+    }
+}
+
+extension JPPlayerView {
+    func setupVideoURL(_ videoURL: URL, pipCtr : AVPictureInPictureController?) {
+        let asset = AVURLAsset(url: videoURL)
+        urlAsset = asset
+        playerItem = AVPlayerItem(asset: asset)
+        player = AVPlayer(playerItem: playerItem)
+        if let player = player {
+            playerLayer.player = player
+            
+            timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: DispatchQueue.main) { [weak self] (time) in
+                guard let currentItem = self?.playerItem else {return}
+                let loadedRanges = currentItem.seekableTimeRanges
+                if loadedRanges.count > 0 && currentItem.duration.timescale != 0 {
+                    let progress = CMTimeGetSeconds(time) / CMTimeGetSeconds(currentItem.duration)
+                    self?.controlView.progress = Float(progress)
+                } else {
+                    self?.controlView.progress = 0
+                }
+            }
+            
+            player.addObserver(self, forKeyPath: #keyPath(AVPlayer.rate), options: .new, context: nil)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(__playDidEnd), name: NSNotification.Name(rawValue: "AVPlayerItemDidPlayToEndTimeNotification"), object: playerItem)
         }
         
-        player.replaceCurrentItem(with: nil)
+        self.pipCtr = pipCtr
+        if let pipCtr = pipCtr {
+            pipCtr.addObserver(self, forKeyPath: #keyPath(AVPictureInPictureController.isPictureInPicturePossible), options: .new, context: nil)
+            pipCtr.addObserver(self, forKeyPath: #keyPath(AVPictureInPictureController.isPictureInPictureActive), options: .new, context: nil)
+        }
     }
 }
 
@@ -78,51 +108,14 @@ extension JPPlayerView {
         backgroundColor = .black
         
         playerLayer.videoGravity = .resizeAspect
-        playerLayer.player = player
         
-        controlView.layer.zPosition = 99
-        addSubview(controlView)
-    }
-    
-    fileprivate func __setupActionAndObserver() {
         controlView.resumeBtn.addTarget(self, action: #selector(__resumeOrPause), for: .touchUpInside)
         controlView.pipBtn?.addTarget(self, action: #selector(__togglePictureInPicture), for: .touchUpInside)
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(__tap))
         tapGR.delegate = self
         controlView.addGestureRecognizer(tapGR)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(__playDidEnd), name: NSNotification.Name(rawValue: "AVPlayerItemDidPlayToEndTimeNotification"), object: playerItem)
-        
-        timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: DispatchQueue.main) { [weak self] (time) in
-            guard let currentItem = self?.playerItem else {return}
-            let loadedRanges = currentItem.seekableTimeRanges
-            if loadedRanges.count > 0 && currentItem.duration.timescale != 0 {
-                let progress = CMTimeGetSeconds(time) / CMTimeGetSeconds(currentItem.duration)
-                self?.controlView.progress = Float(progress)
-            } else {
-                self?.controlView.progress = 0
-            }
-        }
-        
-        player.addObserver(self, forKeyPath: #keyPath(AVPlayer.rate), options: .new, context: nil)
-    }
-    
-    fileprivate func __setupPipCtr() {
-        if AVPictureInPictureController.isPictureInPictureSupported() == true {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playback)
-                try AVAudioSession.sharedInstance().setActive(true, options: [])
-            } catch {
-                
-            }
-            
-            pipCtr = AVPictureInPictureController(playerLayer: playerLayer)
-            guard let pipCtr = pipCtr else {
-                return
-            }
-            pipCtr.addObserver(self, forKeyPath: #keyPath(AVPictureInPictureController.isPictureInPicturePossible), options: .new, context: nil)
-            pipCtr.addObserver(self, forKeyPath: #keyPath(AVPictureInPictureController.isPictureInPictureActive), options: .new, context: nil)
-        }
+        controlView.layer.zPosition = 99
+        addSubview(controlView)
     }
 }
 
@@ -131,6 +124,8 @@ extension JPPlayerView {
     @objc fileprivate func __resumeOrPause() {
         __removeTimer()
         controlView.isShowResumeBtn = true
+        
+        guard let player = player else { return }
         
         controlView.resumeBtn.isSelected = !controlView.resumeBtn.isSelected
         if controlView.resumeBtn.isSelected == true {
@@ -148,15 +143,22 @@ extension JPPlayerView {
     @objc fileprivate func __togglePictureInPicture() {
         __addTimer()
         
-        guard let pipCtr = pipCtr else {
-            return
-        }
+        guard let pipCtr = pipCtr else { return }
+        
         if pipCtr.isPictureInPictureActive {
             controlView.pipBtn?.isSelected = false
             pipCtr.stopPictureInPicture()
         } else {
-            controlView.pipBtn?.isSelected = true
-            pipCtr.startPictureInPicture()
+            if let playerVC = playerVC_ {
+                playerVC.stopPictureInPicture { [weak self] in
+                    self?.controlView.pipBtn?.isSelected = true
+                    guard let kPipCtr = self?.pipCtr else { return }
+                    kPipCtr.startPictureInPicture()
+                }
+            } else {
+                controlView.pipBtn?.isSelected = true
+                pipCtr.startPictureInPicture()
+            }
         }
     }
 }
@@ -172,14 +174,14 @@ extension JPPlayerView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        let isSelected  = player.rate > 0
-        if controlView.resumeBtn.isSelected != isSelected {
-            __resumeOrPause()
+        if let player = player {
+            let isSelected  = player.rate > 0
+            if controlView.resumeBtn.isSelected != isSelected {
+                __resumeOrPause()
+            }
         }
         
-        guard let pipCtr = pipCtr, let pipBtn = controlView.pipBtn else {
-            return
-        }
+        guard let pipCtr = pipCtr, let pipBtn = controlView.pipBtn else { return }
         pipBtn.isEnabled = pipCtr.isPictureInPicturePossible
         pipBtn.isSelected = pipCtr.isPictureInPictureActive
     }

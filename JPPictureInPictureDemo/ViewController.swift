@@ -13,28 +13,36 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let btn = JPBounceButton.bounceButton()
-        btn.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.5)
-        view.addSubview(btn)
+        title = "Hi"
         
-        btn.touchUpInside = { [weak self] in
-            guard let navCtr = self?.navigationController else {return}
-            
-            if let playerVC = playerVC_ {
+        let btn0 = JPBounceButton.bounceButton()
+        btn0.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.3)
+        view.addSubview(btn0)
+        
+        let btn1 = JPBounceButton.bounceButton()
+        btn1.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.7)
+        view.addSubview(btn1)
+        
+        btn0.touchUpInside = { [weak self] in
+            self?.__pushPlayerVC(false)
+        }
+        
+        btn1.touchUpInside = { [weak self] in
+            self?.__pushPlayerVC(true)
+        }
+    }
+    
+    func __pushPlayerVC(_ isPro: Bool) {
+        guard let navCtr = self.navigationController else {return}
+        if let playerVC = playerVC_ {
+            let videoPath = isPro ? iPhone11ProViewController.videoPath() : iPhone11ViewController.videoPath()
+            if playerVC.videoPath == videoPath {
                 navCtr.pushViewController(playerVC, animated: true)
                 return
             }
-            
-            let videoPath = Bundle.main.path(forResource: "iphone-11-pro", ofType: "mp4")
-            let imagePath = Bundle.main.path(forResource: "iphone-11-pro_0", ofType: "jpg")
-            
-            let vc = iPhone11ProViewController()
-            vc.videoPath = videoPath ?? ""
-            vc.imagePath = imagePath ?? ""
-            
-            navCtr.pushViewController(vc, animated: true)
         }
-        
+        let playerVC = isPro ? iPhone11ProViewController() : iPhone11ViewController()
+        navCtr.pushViewController(playerVC, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {

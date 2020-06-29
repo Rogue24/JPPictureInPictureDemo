@@ -9,14 +9,21 @@ import UIKit
 
 class iPhone11ViewController: JPPlayerViewController {
 
-    var imagePath : [String]!
+    class func videoPath() -> String {
+        return Bundle.main.path(forResource: "iphone-11", ofType: "mp4")!
+    }
+    
+    fileprivate let shadowLayer : CALayer = CALayer()
+    
+    fileprivate var imagePaths : [UIImage] = []
+    fileprivate var _imageIndex : Int = 0
     
     private var _isDidAppear = false
     
     private let bgImgView : UIImageView = {
-        let bgImgView = UIImageView()
+        let bgImgView = UIImageView(frame: UIScreen.main.bounds)
+        bgImgView.contentMode = .scaleAspectFill
         bgImgView.backgroundColor = .white
-        bgImgView.alpha = 0
         return bgImgView
     }()
     
@@ -25,138 +32,152 @@ class iPhone11ViewController: JPPlayerViewController {
         
         let str : String = "iPhone 11"
         
-        let attributes : [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 40)]
+        let shadow = NSShadow()
+        shadow.shadowBlurRadius = 3
+        shadow.shadowColor = UIColor(white: 0, alpha: 0.3)
+        shadow.shadowOffset = CGSize(width: 0, height: 1)
+        let attributes : [NSAttributedString.Key : Any] =
+            [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 40),
+             NSAttributedString.Key.foregroundColor: UIColor.systemPink,
+             NSAttributedString.Key.shadow: shadow]
         let attStr = NSMutableAttributedString(string: str, attributes: attributes)
         
-//        attStr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)], range: <#T##NSRange#>)
+        let color0 = UIColor(red: 198.0 / 255.0, green: 194.0 / 255.0, blue: 211.0 / 255.0, alpha: 1)
+        let color1 = UIColor(red: 158.0 / 255.0, green: 219.0 / 255.0, blue: 194.0 / 255.0, alpha: 1)
+        let color2 = UIColor(red: 253.0 / 255.0, green: 226.0 / 255.0, blue: 109.0 / 255.0, alpha: 1)
+        let color3 = UIColor(red: 248.0 / 255.0, green: 244.0 / 255.0, blue: 235.0 / 255.0, alpha: 1)
+        let color4 = UIColor(red: 22.0 / 255.0, green: 25.0 / 255.0, blue: 25.0 / 255.0, alpha: 1)
+        let color5 = UIColor(red: 169.0 / 255.0, green: 0, blue: 36.0 / 255.0, alpha: 1)
+        attStr.addAttributes([NSAttributedString.Key.foregroundColor: color0], range: NSRange(location: 0, length: 1))
+        attStr.addAttributes([NSAttributedString.Key.foregroundColor: color1], range: NSRange(location: 1, length: 1))
+        attStr.addAttributes([NSAttributedString.Key.foregroundColor: color2], range: NSRange(location: 2, length: 1))
+        attStr.addAttributes([NSAttributedString.Key.foregroundColor: color3], range: NSRange(location: 3, length: 1))
+        attStr.addAttributes([NSAttributedString.Key.foregroundColor: color4], range: NSRange(location: 4, length: 1))
+        attStr.addAttributes([NSAttributedString.Key.foregroundColor: color5], range: NSRange(location: 5, length: 1))
         
-        
-        iPhoneLabel.font = .boldSystemFont(ofSize: 40)
-        iPhoneLabel.textColor = .white
-        iPhoneLabel.text = "iPhone 11 Pro"
-        iPhoneLabel.textAlignment = .right
-        iPhoneLabel.alpha = 0
+        iPhoneLabel.attributedText = attStr
+        iPhoneLabel.textAlignment = .center
+        iPhoneLabel.sizeToFit()
         return iPhoneLabel
     }()
     
     private let subLabel : UILabel = {
-//        一切都刚刚好。
-        let str : String = "Pro 如其名。"
-        let attributes : [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30), NSAttributedString.Key.foregroundColor: UIColor.white]
-        let attStr = NSMutableAttributedString(string: str, attributes: attributes)
-        let range = (str as NSString).range(of: "Pro")
-        attStr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 90.0 / 255.0, green: 104.0 / 255.0, blue: 90.0 / 255.0, alpha: 1)], range: range)
-        
         let subLabel = UILabel()
+        let shadow = NSShadow()
+        shadow.shadowBlurRadius = 3
+        shadow.shadowColor = UIColor(white: 0, alpha: 0.3)
+        shadow.shadowOffset = CGSize(width: 0, height: 1)
+        let attributes : [NSAttributedString.Key : Any] =
+            [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
+             NSAttributedString.Key.foregroundColor: UIColor.white,
+             NSAttributedString.Key.shadow: shadow]
+        let attStr = NSMutableAttributedString(string: "一切都刚刚好。", attributes: attributes)
         subLabel.attributedText = attStr
-        subLabel.textAlignment = .right
-        subLabel.alpha = 0
+        subLabel.textAlignment = .center
+        subLabel.sizeToFit()
         return subLabel
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(bgImgView)
+        __setupUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        playerView = JPPlayerView(frame: CGRect(x: 0, y: jp_navTopMargin_,
-                                                width: jp_portraitScreenWidth_,
-                                                height: jp_portraitScreenWidth_ * (9.0 / 16.0)),
-                                  assetURL: URL(fileURLWithPath: videoPath))
-        playerView.pipCtr?.delegate = self
-        playerView.alpha = 0
-        view.addSubview(playerView)
+        if _isDidAppear == true {return}
         
-        view.addSubview(iPhoneLabel)
-        view.addSubview(subLabel)
+        DispatchQueue.global().async {
+            let image0 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_0", ofType: "jpg")!)!
+            let image1 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_1", ofType: "jpg")!)!
+            let image2 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_2", ofType: "jpg")!)!
+            
+            self.imagePaths.append(image0)
+            self.imagePaths.append(image1)
+            self.imagePaths.append(image2)
+            
+            DispatchQueue.main.async {
+                self.__loopAnimation(delay: 0)
+            }
+        }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
-//        navigationController?.interactivePopGestureRecognizer?.delegate = nil
-//        
-//        navCtr = navigationController
-//        
-//        if playerVC_ == self {
-//            playerView.pipCtr?.stopPictureInPicture()
-//        }
-//        
-//        if _isDidAppear == true {return}
-//        
-//        let bgImgViewW = jp_portraitScreenWidth_
-//        let bgImgViewY = self.playerView.frame.maxY - jp_scaleValue(60)
-//        DispatchQueue.global().async {
-//            guard let bgImage = UIImage(contentsOfFile: self.imagePath) else {return}
-//            
-//            let imageWhScale = bgImage.size.height / bgImage.size.width
-//            let bgImgViewFrame = CGRect(x: 0,
-//                                        y: bgImgViewY,
-//                                        width: bgImgViewW,
-//                                        height: bgImgViewW * imageWhScale)
-//            
-//            DispatchQueue.main.async {
-//                self.bgImgView.frame = bgImgViewFrame
-//                self.bgImgView.image = bgImage
-//                self.__loopAnimation(true, 0)
-//                UIView.animate(withDuration: 7) {
-//                    self.bgImgView.alpha = 1
-//                }
-//            }
-//        }
-//    }
-//    
-//    fileprivate func __loopAnimation(_ isIdentity: Bool, _ delay: TimeInterval) {
-//        let transform1 = CGAffineTransform.identity
-//        let transform2 = CGAffineTransform(translationX: -50, y: 50).concatenating(CGAffineTransform(scaleX: 0.87, y: 0.87))
-//        let fromTransform = isIdentity ? transform2 : transform1
-//        let toTransform = isIdentity ? transform1 : transform2
-//        bgImgView.transform = fromTransform
-//        UIView.animate(withDuration: 50, delay: delay, options: .curveLinear, animations: {
-//            self.bgImgView.transform = toTransform
-//        }, completion: { (finish) in
-//            if finish == true { self.__loopAnimation(!isIdentity, 3.0) }
-//        })
-//    }
-//    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//        if _isDidAppear == true {return}
-//        _isDidAppear = true
-//        
-//        iPhoneLabel.frame = CGRect(x: -16, y: playerView.frame.maxY + 12, width: jp_portraitScreenWidth_, height: iPhoneLabel.font.lineHeight)
-//        subLabel.frame = CGRect(x: -16, y: iPhoneLabel.frame.maxY + 12, width: jp_portraitScreenWidth_, height: subLabel.font.lineHeight)
-//        
-//        UIView.animate(withDuration: 3, delay: 1, options: [], animations: {
-//            self.iPhoneLabel.alpha = 1
-//        }, completion: { (finish) in
-//            if finish == true {
-//                let str : String = "iPhone 11 Pro"
-//                let attributes : [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: self.iPhoneLabel.font!, NSAttributedString.Key.foregroundColor: self.iPhoneLabel.textColor!]
-//                let attStr = NSMutableAttributedString(string: str, attributes: attributes)
-//                let range = (str as NSString).range(of: "Pro")
-//                attStr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 90.0 / 255.0, green: 104.0 / 255.0, blue: 90.0 / 255.0, alpha: 1)], range: range)
-//                
-//                UIView.transition(with: self.iPhoneLabel, duration: 2, options: .transitionCrossDissolve, animations: {
-//                    self.iPhoneLabel.attributedText = attStr
-//                }, completion: nil)
-//                
-//                UIView.animate(withDuration: 2, animations: {
-//                    self.subLabel.alpha = 1
-//                })
-//            }
-//        })
-//        
-//        playerView.player.play()
-//        UIView.animate(withDuration: 1.0, animations: {
-//            self.playerView.alpha = 1
-//        })
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if _isDidAppear == true {return}
+        _isDidAppear = true
+        
+        UIView.animate(withDuration: 1, delay: 1, options: [], animations: {
+            self.iPhoneLabel.alpha = 1
+        }, completion: { (finish) in
+            if finish == true {
+                UIView.animate(withDuration: 1, animations: {
+                    self.subLabel.alpha = 1
+                })
+            }
+        })
+        
+        playerView.player?.play()
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         get {
             return .darkContent
         }
     }
-
 }
+
+// MARK:- 私有API
+extension iPhone11ViewController {
+    fileprivate func __setupUI() {
+        view.backgroundColor = .white
+        
+        let x : CGFloat = 16.0
+        let w : CGFloat = jp_portraitScreenWidth_ - 2 * x
+        let h : CGFloat = w * (9.0 / 16.0)
+        let y : CGFloat = jp_portraitScreenHeight_ * 0.3
+        videoPath = iPhone11ViewController.videoPath()
+        createPlayerView(CGRect(x: x, y: y, width: w, height: h),
+                         videoURL: URL(fileURLWithPath: videoPath))
+        playerView.layer.cornerRadius = 10
+        playerView.layer.masksToBounds = true
+        
+        shadowLayer.shadowPath = UIBezierPath(roundedRect: playerView.frame, cornerRadius: playerView.layer.cornerRadius).cgPath
+        shadowLayer.shadowColor = UIColor.black.cgColor
+        shadowLayer.shadowOpacity = 0.5
+        shadowLayer.shadowRadius = 10
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 5)
+        
+        iPhoneLabel.frame.origin = CGPoint(x: (jp_portraitScreenWidth_ - iPhoneLabel.frame.width) * 0.5, y: jp_navTopMargin_ + 15)
+        iPhoneLabel.alpha = 0
+        
+        subLabel.frame.origin = CGPoint(x: (jp_portraitScreenWidth_ - subLabel.frame.width) * 0.5, y: iPhoneLabel.frame.maxY + 15)
+        subLabel.alpha = 0
+        
+        view.addSubview(bgImgView)
+        view.layer.addSublayer(shadowLayer)
+        view.addSubview(playerView)
+        view.addSubview(iPhoneLabel)
+        view.addSubview(subLabel)
+    }
+    
+    fileprivate func __loopAnimation(delay: TimeInterval) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
+            let bgImage = self.imagePaths[self._imageIndex]
+            UIView.transition(with: self.bgImgView, duration: 3.0, options: .transitionCrossDissolve) {
+                self.bgImgView.image = bgImage
+            } completion: { (finish) in
+                if finish == true {
+                    self._imageIndex += 1
+                    if self._imageIndex >= self.imagePaths.count {
+                        self._imageIndex = 0
+                    }
+                    self.__loopAnimation(delay: 10.0)
+                }
+            }
+        }
+    }
+}
+

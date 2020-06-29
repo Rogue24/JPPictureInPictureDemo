@@ -50,7 +50,6 @@ class JPPlayerControlView: UIView {
     }
     
     override init(frame: CGRect) {
-        
         self.progressView = UIProgressView(frame: CGRect(x: 0, y: frame.height - 3, width: frame.width, height: 3))
         self.progressView.trackTintColor = .lightGray
         self.progressView.progressTintColor = .white
@@ -74,13 +73,6 @@ class JPPlayerControlView: UIView {
         self.blurView.contentView.addSubview(self.resumeBtn)
         
         if AVPictureInPictureController.isPictureInPictureSupported() == true {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playback)
-                try AVAudioSession.sharedInstance().setActive(true, options: [])
-            } catch {
-                
-            }
-            
             var startImage = AVPictureInPictureController.pictureInPictureButtonStartImage
             UIGraphicsBeginImageContextWithOptions(startImage.size, false, 0)
             UIColor.white.setFill()

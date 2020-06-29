@@ -12,16 +12,78 @@ var playerVC_ : JPPlayerViewController?
 
 class JPPlayerViewController: UIViewController {
     
-    var videoPath : String!
+    var videoPath: String!
     var playerView : JPPlayerView!
+    
+    var pipCtr : AVPictureInPictureController?
+    fileprivate var stopPipComplete : (()->())?
+    
     weak var navCtr : UINavigationController?
+    
+    let backBtn : UIButton = {
+        let backBtn = UIButton(type: .system)
+        backBtn.setImage(UIImage(named: "com_left_white_icon"), for: .normal)
+        backBtn.frame = CGRect(x: 0, y: jp_statusBarH_, width: jp_navBarH_, height: jp_navBarH_)
+        backBtn.tintColor = .white
+        return backBtn
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.clipsToBounds = true
+        backBtn.addTarget(self, action: #selector(__backAction), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.addSubview(backBtn)
+        
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
+        navCtr = navigationController
+        
+        if playerVC_ == self {
+            pipCtr?.stopPictureInPicture()
+        }
+    }
+    
+    @objc private func __backAction() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
+// MARK:- API
+extension JPPlayerViewController {
+    func createPlayerView(_ frame: CGRect, videoURL: URL) {
+        playerView = JPPlayerView(frame: frame)
+        
+        if AVPictureInPictureController.isPictureInPictureSupported() == true {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playback)
+                try AVAudioSession.sharedInstance().setActive(true, options: [])
+            } catch {
+                print("AVAudioSession发生错误")
+            }
+            
+            pipCtr = AVPictureInPictureController(playerLayer: playerView.playerLayer)
+            pipCtr?.delegate = self
+        }
+        
+        playerView.setupVideoURL(videoURL, pipCtr: pipCtr)
+    }
+    
+    func stopPictureInPicture(_ complete: (()->())?) {
+        if let pipCtr = pipCtr, pipCtr.isPictureInPictureActive == true {
+            stopPipComplete = complete
+            pipCtr.stopPictureInPicture()
+        } else {
+            stopPipComplete = nil
+        }
+    }
+}
+
+// MARK:- <AVPictureInPictureControllerDelegate>
 extension JPPlayerViewController : AVPictureInPictureControllerDelegate {
     /**
         @method        pictureInPictureControllerWillStartPictureInPicture:
@@ -80,6 +142,8 @@ extension JPPlayerViewController : AVPictureInPictureControllerDelegate {
     func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
         print("pictureInPictureControllerDidStopPictureInPicture")
         playerVC_ = nil
+        if let complete = stopPipComplete { complete() }
+        stopPipComplete = nil
     }
 
     
@@ -94,7 +158,10 @@ extension JPPlayerViewController : AVPictureInPictureControllerDelegate {
     func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
         print("restoreUserInterfaceForPictureInPictureStopWithCompletionHandler")
         
-        if let navCtr = navCtr, navCtr.viewControllers.contains(self) != true {
+        if stopPipComplete == nil,
+           let navCtr = navCtr,
+           navCtr.viewControllers.contains(self) != true {
+            
             playerVC_ = nil
             navCtr.pushViewController(self, animated: true)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.15) {
