@@ -10,18 +10,7 @@ import AVKit
 
 class JPPlayerView: UIView {
     
-    override class var layerClass: AnyClass {
-        get {
-            return AVPlayerLayer.self
-        }
-    }
-    
-    var playerLayer : AVPlayerLayer {
-        get {
-            return layer as! AVPlayerLayer
-        }
-    }
-    
+    var playerLayer : AVPlayerLayer = AVPlayerLayer()
     let controlView : JPPlayerControlView
     
     var urlAsset : AVURLAsset?
@@ -69,6 +58,7 @@ class JPPlayerView: UIView {
     }
 }
 
+// MARK:- API
 extension JPPlayerView {
     func setupVideoURL(_ videoURL: URL, pipCtr : AVPictureInPictureController?) {
         let asset = AVURLAsset(url: videoURL)
@@ -102,24 +92,26 @@ extension JPPlayerView {
     }
 }
 
+// MARK:- 私有API
 extension JPPlayerView {
     fileprivate func __setupUI() {
         clipsToBounds = true
         backgroundColor = .black
         
+        playerLayer.frame = self.bounds
         playerLayer.videoGravity = .resizeAspect
+        layer.addSublayer(playerLayer)
         
         controlView.resumeBtn.addTarget(self, action: #selector(__resumeOrPause), for: .touchUpInside)
         controlView.pipBtn?.addTarget(self, action: #selector(__togglePictureInPicture), for: .touchUpInside)
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(__tap))
         tapGR.delegate = self
         controlView.addGestureRecognizer(tapGR)
-        controlView.layer.zPosition = 99
         addSubview(controlView)
     }
 }
 
-
+// MARK:- 按钮点击事件
 extension JPPlayerView {
     @objc fileprivate func __resumeOrPause() {
         __removeTimer()
@@ -152,8 +144,7 @@ extension JPPlayerView {
             if let playerVC = playerVC_ {
                 playerVC.stopPictureInPicture { [weak self] in
                     self?.controlView.pipBtn?.isSelected = true
-                    guard let kPipCtr = self?.pipCtr else { return }
-                    kPipCtr.startPictureInPicture()
+                    self?.pipCtr?.startPictureInPicture()
                 }
             } else {
                 controlView.pipBtn?.isSelected = true
@@ -163,6 +154,7 @@ extension JPPlayerView {
     }
 }
 
+// MARK:- 事件监听
 extension JPPlayerView {
     @objc fileprivate func __playDidEnd() {
         _isPlayDone = true
@@ -194,6 +186,7 @@ extension JPPlayerView {
     }
 }
 
+// MARK:- <UIGestureRecognizerDelegate>
 extension JPPlayerView : UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if controlView.isShowResumeBtn == true {
@@ -206,6 +199,7 @@ extension JPPlayerView : UIGestureRecognizerDelegate {
     }
 }
 
+// MARK:- Timer
 extension JPPlayerView {
     fileprivate func __addTimer() {
         __removeTimer()
