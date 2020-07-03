@@ -165,15 +165,15 @@ extension iPhone11ViewController {
     
     fileprivate func __loopAnimation(delay: TimeInterval) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
+            if self._imageIndex >= self.imagePaths.count {
+                self._imageIndex = 0
+            }
             let bgImage = self.imagePaths[self._imageIndex]
-            UIView.transition(with: self.bgImgView, duration: 3.0, options: .transitionCrossDissolve) {
+            UIView.transition(with: self.bgImgView, duration: 3.0, options: .transitionCrossDissolve, animations: {
                 self.bgImgView.image = bgImage
-            } completion: { (finish) in
+            }) { (finish) in
                 if finish == true {
                     self._imageIndex += 1
-                    if self._imageIndex >= self.imagePaths.count {
-                        self._imageIndex = 0
-                    }
                     self.__loopAnimation(delay: 10.0)
                 }
             }
