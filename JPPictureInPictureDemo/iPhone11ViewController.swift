@@ -7,18 +7,14 @@
 
 import UIKit
 
-class iPhone11ViewController: JPPlayerViewController {
+class iPhone11ViewController: PlayerViewController {
 
-    class func videoPath() -> String {
-        return Bundle.main.path(forResource: "iphone-11", ofType: "mp4")!
-    }
+    class func videoPath() -> String { Bundle.main.path(forResource: "iphone-11", ofType: "mp4")! }
     
     fileprivate let shadowLayer : CALayer = CALayer()
     
     fileprivate var imagePaths : [UIImage] = []
     fileprivate var _imageIndex : Int = 0
-    
-    private var _isDidAppear = false
     
     private let bgImgView : UIImageView = {
         let bgImgView = UIImageView(frame: UIScreen.main.bounds)
@@ -78,6 +74,10 @@ class iPhone11ViewController: JPPlayerViewController {
         return subLabel
     }()
     
+    private var _isDidAppear = false
+    
+    fileprivate var workItem: DispatchWorkItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         __setupUI()
@@ -86,7 +86,7 @@ class iPhone11ViewController: JPPlayerViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if _isDidAppear == true {return}
+        if _isDidAppear { return }
         
         DispatchQueue.global().async {
             let image0 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_0", ofType: "jpg")!)!
@@ -97,8 +97,8 @@ class iPhone11ViewController: JPPlayerViewController {
             self.imagePaths.append(image1)
             self.imagePaths.append(image2)
             
-            DispatchQueue.main.async {
-                self.__loopAnimation(delay: 0)
+            DispatchQueue.main.async { [weak self] in
+                self?.__loopAnimation(delay: 0)
             }
         }
     }
@@ -106,13 +106,13 @@ class iPhone11ViewController: JPPlayerViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if _isDidAppear == true {return}
+        if _isDidAppear { return }
         _isDidAppear = true
         
         UIView.animate(withDuration: 1, delay: 1, options: [], animations: {
             self.iPhoneLabel.alpha = 1
         }, completion: { (finish) in
-            if finish == true {
+            if finish {
                 UIView.animate(withDuration: 1, animations: {
                     self.subLabel.alpha = 1
                 })
@@ -122,11 +122,9 @@ class iPhone11ViewController: JPPlayerViewController {
         playerView.player?.play()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        get {
-            return .darkContent
-        }
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
+    
+    deinit { workItem?.cancel() }
 }
 
 // MARK:- 私有API
@@ -135,9 +133,9 @@ extension iPhone11ViewController {
         view.backgroundColor = .white
         
         let x : CGFloat = 16.0
-        let w : CGFloat = jp_portraitScreenWidth_ - 2 * x
+        let w : CGFloat = PortraitScreenWidth - 2 * x
         let h : CGFloat = w * (9.0 / 16.0)
-        let y : CGFloat = jp_portraitScreenHeight_ * 0.3
+        let y : CGFloat = PortraitScreenHeight * 0.3
         videoPath = iPhone11ViewController.videoPath()
         createPlayerView(CGRect(x: x, y: y, width: w, height: h),
                          videoURL: URL(fileURLWithPath: videoPath))
@@ -150,10 +148,10 @@ extension iPhone11ViewController {
         shadowLayer.shadowRadius = 10
         shadowLayer.shadowOffset = CGSize(width: 0, height: 5)
         
-        iPhoneLabel.frame.origin = CGPoint(x: (jp_portraitScreenWidth_ - iPhoneLabel.frame.width) * 0.5, y: jp_navTopMargin_ + 15)
+        iPhoneLabel.frame.origin = CGPoint(x: (PortraitScreenWidth - iPhoneLabel.frame.width) * 0.5, y: NavTopMargin + 15)
         iPhoneLabel.alpha = 0
         
-        subLabel.frame.origin = CGPoint(x: (jp_portraitScreenWidth_ - subLabel.frame.width) * 0.5, y: iPhoneLabel.frame.maxY + 15)
+        subLabel.frame.origin = CGPoint(x: (PortraitScreenWidth - subLabel.frame.width) * 0.5, y: iPhoneLabel.frame.maxY + 15)
         subLabel.alpha = 0
         
         view.addSubview(bgImgView)
@@ -164,20 +162,23 @@ extension iPhone11ViewController {
     }
     
     fileprivate func __loopAnimation(delay: TimeInterval) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
             if self._imageIndex >= self.imagePaths.count {
                 self._imageIndex = 0
             }
             let bgImage = self.imagePaths[self._imageIndex]
             UIView.transition(with: self.bgImgView, duration: 3.0, options: .transitionCrossDissolve, animations: {
                 self.bgImgView.image = bgImage
-            }) { (finish) in
-                if finish == true {
+            }) { finish in
+                if finish {
                     self._imageIndex += 1
                     self.__loopAnimation(delay: 10.0)
                 }
             }
         }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: workItem)
+        self.workItem = workItem
     }
 }
 

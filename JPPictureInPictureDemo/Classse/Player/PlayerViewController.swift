@@ -1,5 +1,5 @@
 //
-//  JPPlayerViewController.swift
+//  PlayerViewController.swift
 //  JPPictureInPictureDemo
 //
 //  Created by 周健平 on 2020/6/25.
@@ -8,12 +8,12 @@
 import UIKit
 import AVKit
 
-var playerVC_ : JPPlayerViewController?
+var playerVC_ : PlayerViewController?
 
-class JPPlayerViewController: UIViewController {
+class PlayerViewController: UIViewController {
     
     var videoPath: String!
-    var playerView : JPPlayerView!
+    var playerView : PlayerView!
     
     var pipCtr : AVPictureInPictureController?
     fileprivate var stopPipComplete : (()->())?
@@ -23,7 +23,7 @@ class JPPlayerViewController: UIViewController {
     let backBtn : UIButton = {
         let backBtn = UIButton(type: .system)
         backBtn.setImage(UIImage(named: "com_left_white_icon"), for: .normal)
-        backBtn.frame = CGRect(x: 0, y: jp_statusBarH_, width: jp_navBarH_, height: jp_navBarH_)
+        backBtn.frame = CGRect(x: 0, y: StatusBarH, width: NavBarH, height: NavBarH)
         backBtn.tintColor = .white
         return backBtn
     }()
@@ -54,11 +54,11 @@ class JPPlayerViewController: UIViewController {
 }
 
 // MARK:- API
-extension JPPlayerViewController {
+extension PlayerViewController {
     func createPlayerView(_ frame: CGRect, videoURL: URL) {
-        playerView = JPPlayerView(frame: frame)
+        playerView = PlayerView(frame: frame)
         
-        if AVPictureInPictureController.isPictureInPictureSupported() == true {
+        if AVPictureInPictureController.isPictureInPictureSupported() {
             do {
                 try AVAudioSession.sharedInstance().setCategory(.playback)
                 try AVAudioSession.sharedInstance().setActive(true, options: [])
@@ -74,7 +74,7 @@ extension JPPlayerViewController {
     }
     
     func stopPictureInPicture(_ complete: (()->())?) {
-        if let pipCtr = pipCtr, pipCtr.isPictureInPictureActive == true {
+        if let pipCtr = pipCtr, pipCtr.isPictureInPictureActive {
             stopPipComplete = complete
             pipCtr.stopPictureInPicture()
         } else {
@@ -84,7 +84,7 @@ extension JPPlayerViewController {
 }
 
 // MARK:- <AVPictureInPictureControllerDelegate>
-extension JPPlayerViewController : AVPictureInPictureControllerDelegate {
+extension PlayerViewController : AVPictureInPictureControllerDelegate {
     /**
         @method        pictureInPictureControllerWillStartPictureInPicture:
         @param        pictureInPictureController

@@ -7,11 +7,9 @@
 
 import UIKit
 
-class iPhone11ProViewController: JPPlayerViewController {
+class iPhone11ProViewController: PlayerViewController {
     
-    class func videoPath() -> String {
-        return Bundle.main.path(forResource: "iphone-11-pro", ofType: "mp4")!
-    }
+    class func videoPath() -> String { Bundle.main.path(forResource: "iphone-11-pro", ofType: "mp4")! }
     
     private var _isDidAppear = false
     
@@ -51,12 +49,12 @@ class iPhone11ProViewController: JPPlayerViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if _isDidAppear == true {return}
+        if _isDidAppear { return }
         
-        let bgImgViewW = jp_portraitScreenWidth_
-        let bgImgViewY = self.playerView.frame.maxY - jp_scaleValue(60)
+        let bgImgViewW = PortraitScreenWidth
+        let bgImgViewY = playerView.frame.maxY - ScaleValue(60)
         DispatchQueue.global().async {
-            guard let bgImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11-pro_0", ofType: "jpg")!) else {return}
+            guard let bgImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11-pro_0", ofType: "jpg")!) else { return }
             
             let imageWhScale = bgImage.size.height / bgImage.size.width
             let bgImgViewFrame = CGRect(x: 0,
@@ -78,16 +76,16 @@ class iPhone11ProViewController: JPPlayerViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if _isDidAppear == true {return}
+        if _isDidAppear { return }
         _isDidAppear = true
         
-        iPhoneLabel.frame = CGRect(x: -16, y: playerView.frame.maxY + 12, width: jp_portraitScreenWidth_, height: iPhoneLabel.font.lineHeight)
-        subLabel.frame = CGRect(x: -16, y: iPhoneLabel.frame.maxY + 12, width: jp_portraitScreenWidth_, height: subLabel.font.lineHeight)
+        iPhoneLabel.frame = CGRect(x: -16, y: playerView.frame.maxY + 12, width: PortraitScreenWidth, height: iPhoneLabel.font.lineHeight)
+        subLabel.frame = CGRect(x: -16, y: iPhoneLabel.frame.maxY + 12, width: PortraitScreenWidth, height: subLabel.font.lineHeight)
         
         UIView.animate(withDuration: 3, delay: 1, options: [], animations: {
             self.iPhoneLabel.alpha = 1
-        }, completion: { (finish) in
-            if finish == true {
+        }, completion: { finish in
+            if finish {
                 let str : String = "iPhone 11 Pro"
                 let attributes : [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: self.iPhoneLabel.font!, NSAttributedString.Key.foregroundColor: self.iPhoneLabel.textColor!]
                 let attStr = NSMutableAttributedString(string: str, attributes: attributes)
@@ -110,11 +108,7 @@ class iPhone11ProViewController: JPPlayerViewController {
         })
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        get {
-            return .lightContent
-        }
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 }
 
 // MARK:- 私有API
@@ -124,9 +118,9 @@ extension iPhone11ProViewController {
         
         videoPath = iPhone11ProViewController.videoPath()
         createPlayerView(CGRect(x: 0,
-                               y: jp_navTopMargin_,
-                               width: jp_portraitScreenWidth_,
-                               height: jp_portraitScreenWidth_ * (9.0 / 16.0)),
+                               y: NavTopMargin,
+                               width: PortraitScreenWidth,
+                               height: PortraitScreenWidth * AspectRatio_9_16),
                          videoURL: URL(fileURLWithPath: videoPath))
         
         bgImgView.alpha = 0
@@ -148,8 +142,8 @@ extension iPhone11ProViewController {
         bgImgView.transform = fromTransform
         UIView.animate(withDuration: 50, delay: delay, options: .curveLinear, animations: {
             self.bgImgView.transform = toTransform
-        }, completion: { (finish) in
-            if finish == true { self.__loopAnimation(!isIdentity, 3.0) }
+        }, completion: { [weak self] finish in
+            if let self = self, finish { self.__loopAnimation(!isIdentity, 3.0) }
         })
     }
 }

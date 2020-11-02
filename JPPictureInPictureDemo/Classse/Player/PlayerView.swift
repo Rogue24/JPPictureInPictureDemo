@@ -1,5 +1,5 @@
 //
-//  JPPlayerView.swift
+//  PlayerView.swift
 //  JPPictureInPictureDemo
 //
 //  Created by 周健平 on 2020/6/25.
@@ -8,10 +8,10 @@
 import UIKit
 import AVKit
 
-class JPPlayerView: UIView {
+class PlayerView: UIView {
     
     var playerLayer : AVPlayerLayer = AVPlayerLayer()
-    let controlView : JPPlayerControlView
+    let controlView : PlayerControlView
     
     var urlAsset : AVURLAsset?
     var playerItem : AVPlayerItem?
@@ -26,7 +26,7 @@ class JPPlayerView: UIView {
     fileprivate var _timer : Timer?
     
     override init(frame: CGRect) {
-        self.controlView = JPPlayerControlView(frame: CGRect(origin: .zero, size: frame.size))
+        self.controlView = PlayerControlView(frame: CGRect(origin: .zero, size: frame.size))
         super.init(frame: frame)
         __setupUI()
     }
@@ -59,7 +59,7 @@ class JPPlayerView: UIView {
 }
 
 // MARK:- API
-extension JPPlayerView {
+extension PlayerView {
     func setupVideoURL(_ videoURL: URL, pipCtr : AVPictureInPictureController?) {
         let asset = AVURLAsset(url: videoURL)
         urlAsset = asset
@@ -69,7 +69,7 @@ extension JPPlayerView {
             playerLayer.player = player
             
             timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: DispatchQueue.main) { [weak self] (time) in
-                guard let currentItem = self?.playerItem else {return}
+                guard let currentItem = self?.playerItem else { return }
                 let loadedRanges = currentItem.seekableTimeRanges
                 if loadedRanges.count > 0 && currentItem.duration.timescale != 0 {
                     let progress = CMTimeGetSeconds(time) / CMTimeGetSeconds(currentItem.duration)
@@ -93,7 +93,7 @@ extension JPPlayerView {
 }
 
 // MARK:- 私有API
-extension JPPlayerView {
+extension PlayerView {
     fileprivate func __setupUI() {
         clipsToBounds = true
         backgroundColor = .black
@@ -112,7 +112,7 @@ extension JPPlayerView {
 }
 
 // MARK:- 按钮点击事件
-extension JPPlayerView {
+extension PlayerView {
     @objc fileprivate func __resumeOrPause() {
         __removeTimer()
         controlView.isShowResumeBtn = true
@@ -120,8 +120,8 @@ extension JPPlayerView {
         guard let player = player else { return }
         
         controlView.resumeBtn.isSelected = !controlView.resumeBtn.isSelected
-        if controlView.resumeBtn.isSelected == true {
-            if _isPlayDone == true {
+        if controlView.resumeBtn.isSelected {
+            if _isPlayDone {
                 _isPlayDone = false
                 player.seek(to: .zero)
             }
@@ -155,7 +155,7 @@ extension JPPlayerView {
 }
 
 // MARK:- 事件监听
-extension JPPlayerView {
+extension PlayerView {
     @objc fileprivate func __playDidEnd() {
         _isPlayDone = true
         controlView.resumeBtn.isSelected = false
@@ -180,16 +180,16 @@ extension JPPlayerView {
     
     @objc fileprivate func __tap() {
         controlView.isShowResumeBtn = !controlView.isShowResumeBtn
-        if controlView.isShowResumeBtn == true {
+        if controlView.isShowResumeBtn {
             __addTimer()
         }
     }
 }
 
 // MARK:- <UIGestureRecognizerDelegate>
-extension JPPlayerView : UIGestureRecognizerDelegate {
+extension PlayerView : UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if controlView.isShowResumeBtn == true {
+        if controlView.isShowResumeBtn {
             let location = gestureRecognizer.location(in: controlView)
             if controlView.blurView.frame.contains(location) {
                 return false
@@ -200,13 +200,13 @@ extension JPPlayerView : UIGestureRecognizerDelegate {
 }
 
 // MARK:- Timer
-extension JPPlayerView {
+extension PlayerView {
     fileprivate func __addTimer() {
         __removeTimer()
         _timer = Timer.init(timeInterval: 5.0, repeats: false, block: { [weak self] (timer) in
             self?.controlView.isShowResumeBtn = false
         })
-        guard let timer = _timer else {return}
+        guard let timer = _timer else { return }
         RunLoop.main.add(timer, forMode: .common)
     }
     

@@ -1,5 +1,5 @@
 //
-//  JPBounceButton.swift
+//  BounceButton.swift
 //  JPPictureInPictureDemo
 //
 //  Created by 周健平 on 2020/6/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class JPBounceButton: UIButton {
+class BounceButton: UIButton {
     
     private let bgView : UIView = UIView()
     private let label0 : UILabel = UILabel()
@@ -19,9 +19,9 @@ class JPBounceButton: UIButton {
     // private(set)：读公有，写私有
     private(set) var isTouching : Bool {
         set {
-            if _isTouching == newValue {return}
+            if _isTouching == newValue { return }
             _isTouching = newValue
-            if newValue == true {
+            if newValue {
                 label1.text = "😝"
                 impactFeedbacker.prepare()
                 impactFeedbacker.impactOccurred()
@@ -35,7 +35,7 @@ class JPBounceButton: UIButton {
                     self.label2.transform = transform2
                 })
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.12) { [weak self] in
-                    guard let btn = self, btn.isTouching == true else {return}
+                    guard let btn = self, btn.isTouching else { return }
                     btn.label0.text = "Free"
                 }
             } else {
@@ -50,14 +50,12 @@ class JPBounceButton: UIButton {
                 }, completion: nil)
             }
         }
-        get {
-            return _isTouching
-        }
+        get { _isTouching }
     }
     
     var touchUpInside : (() -> Void)?
     
-    class func bounceButton() -> JPBounceButton {
+    class func bounceButton() -> Self {
         let btn = self.init(type: .custom)
         btn.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
         btn.__setupUI()

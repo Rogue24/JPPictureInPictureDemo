@@ -15,11 +15,11 @@ class ViewController: UIViewController {
         
         title = "Hi"
         
-        let btn0 = JPBounceButton.bounceButton()
+        let btn0 = BounceButton.bounceButton()
         btn0.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.3)
         view.addSubview(btn0)
         
-        let btn1 = JPBounceButton.bounceButton()
+        let btn1 = BounceButton.bounceButton()
         btn1.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.7)
         view.addSubview(btn1)
         
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
     
     func __pushPlayerVC(_ isPro: Bool) {
-        guard let navCtr = self.navigationController else {return}
+        guard let navCtr = self.navigationController else { return }
         if let playerVC = playerVC_ {
             let videoPath = isPro ? iPhone11ProViewController.videoPath() : iPhone11ViewController.videoPath()
             if playerVC.videoPath == videoPath {

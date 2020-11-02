@@ -1,5 +1,5 @@
 //
-//  JPPlayerControlView.swift
+//  PlayerControlView.swift
 //  JPPictureInPictureDemo
 //
 //  Created by 周健平 on 2020/6/28.
@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 
-class JPPlayerControlView: UIView {
+class PlayerControlView: UIView {
     
     let progressView : UIProgressView
     
@@ -22,9 +22,7 @@ class JPPlayerControlView: UIView {
                 }
             }
         }
-        get {
-            return progressView.progress
-        }
+        get { progressView.progress }
     }
     
     let blurView : UIVisualEffectView
@@ -36,17 +34,13 @@ class JPPlayerControlView: UIView {
     fileprivate var _isShowResumeBtn : Bool = true
     var isShowResumeBtn : Bool {
         set {
-            if _isShowResumeBtn == newValue {
-                return
-            }
+            if _isShowResumeBtn == newValue { return }
             _isShowResumeBtn = newValue
             UIView.animate(withDuration: 0.5) {
                 self.blurView.alpha = newValue ? 1 : 0
             }
         }
-        get {
-            return _isShowResumeBtn
-        }
+        get {  _isShowResumeBtn }
     }
     
     override init(frame: CGRect) {
@@ -69,10 +63,10 @@ class JPPlayerControlView: UIView {
         self.resumeBtn.setImage(pauseIcon, for: .selected)
         self.resumeBtn.setImage(pauseIcon, for: [.selected, .highlighted])
         self.resumeBtn.tintColor = .clear
-        self.resumeBtn.frame = CGRect(x: 0, y: 0, width: jp_navBarH_, height: jp_navBarH_)
+        self.resumeBtn.frame = CGRect(x: 0, y: 0, width: NavBarH, height: NavBarH)
         self.blurView.contentView.addSubview(self.resumeBtn)
         
-        if AVPictureInPictureController.isPictureInPictureSupported() == true {
+        if AVPictureInPictureController.isPictureInPictureSupported() {
             var startImage = AVPictureInPictureController.pictureInPictureButtonStartImage
             UIGraphicsBeginImageContextWithOptions(startImage.size, false, 0)
             UIColor.white.setFill()
@@ -97,14 +91,14 @@ class JPPlayerControlView: UIView {
             pipBtn.setImage(stopImage, for: .selected)
             pipBtn.setImage(stopImage, for: [.selected, .highlighted])
             pipBtn.tintColor = .clear
-            pipBtn.frame = CGRect(x: self.resumeBtn.frame.maxX, y: 0, width: jp_navBarH_, height: jp_navBarH_)
+            pipBtn.frame = CGRect(x: self.resumeBtn.frame.maxX, y: 0, width: NavBarH, height: NavBarH)
             self.blurView.contentView.addSubview(pipBtn)
             self.pipBtn = pipBtn
             
-            self.blurView.frame = CGRect(x: 8, y: frame.height - jp_navBarH_ - 10, width: pipBtn.frame.maxX, height: jp_navBarH_)
+            self.blurView.frame = CGRect(x: 8, y: frame.height - NavBarH - 10, width: pipBtn.frame.maxX, height: NavBarH)
             
         } else {
-            self.blurView.frame = CGRect(x: 8, y: frame.height - jp_navBarH_ - 10, width: self.resumeBtn.frame.width, height: jp_navBarH_)
+            self.blurView.frame = CGRect(x: 8, y: frame.height - NavBarH - 10, width: self.resumeBtn.frame.width, height: NavBarH)
         }
         
         super.init(frame: frame)

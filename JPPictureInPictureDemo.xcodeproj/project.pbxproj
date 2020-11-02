@@ -22,11 +22,11 @@
 		1ADB1A6A24A99D3200D4509F /* iphone-11_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5D24A99D3200D4509F /* iphone-11_0.jpg */; };
 		1ADB1A6B24A99D3200D4509F /* iphone-11_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5E24A99D3200D4509F /* iphone-11_2.jpg */; };
 		1ADB1A6C24A99D3200D4509F /* iphone-11.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5F24A99D3200D4509F /* iphone-11.mp4 */; };
-		1ADB1A7924A99DA500D4509F /* JPBounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7324A99DA500D4509F /* JPBounceButton.swift */; };
-		1ADB1A7A24A99DA500D4509F /* JPSwiftConstont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7424A99DA500D4509F /* JPSwiftConstont.swift */; };
-		1ADB1A7B24A99DA500D4509F /* JPPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7624A99DA500D4509F /* JPPlayerControlView.swift */; };
-		1ADB1A7C24A99DA500D4509F /* JPPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7724A99DA500D4509F /* JPPlayerView.swift */; };
-		1ADB1A7D24A99DA500D4509F /* JPPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7824A99DA500D4509F /* JPPlayerViewController.swift */; };
+		1ADB1A7924A99DA500D4509F /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7324A99DA500D4509F /* BounceButton.swift */; };
+		1ADB1A7B24A99DA500D4509F /* PlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7624A99DA500D4509F /* PlayerControlView.swift */; };
+		1ADB1A7C24A99DA500D4509F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7724A99DA500D4509F /* PlayerView.swift */; };
+		1ADB1A7D24A99DA500D4509F /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */; };
+		1AFEEE332550689300F0D6D4 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFEEE312550689300F0D6D4 /* Const.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,11 +47,11 @@
 		1ADB1A5D24A99D3200D4509F /* iphone-11_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_0.jpg"; sourceTree = "<group>"; };
 		1ADB1A5E24A99D3200D4509F /* iphone-11_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_2.jpg"; sourceTree = "<group>"; };
 		1ADB1A5F24A99D3200D4509F /* iphone-11.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iphone-11.mp4"; sourceTree = "<group>"; };
-		1ADB1A7324A99DA500D4509F /* JPBounceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPBounceButton.swift; sourceTree = "<group>"; };
-		1ADB1A7424A99DA500D4509F /* JPSwiftConstont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPSwiftConstont.swift; sourceTree = "<group>"; };
-		1ADB1A7624A99DA500D4509F /* JPPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPlayerControlView.swift; sourceTree = "<group>"; };
-		1ADB1A7724A99DA500D4509F /* JPPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPlayerView.swift; sourceTree = "<group>"; };
-		1ADB1A7824A99DA500D4509F /* JPPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPPlayerViewController.swift; sourceTree = "<group>"; };
+		1ADB1A7324A99DA500D4509F /* BounceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceButton.swift; sourceTree = "<group>"; };
+		1ADB1A7624A99DA500D4509F /* PlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControlView.swift; sourceTree = "<group>"; };
+		1ADB1A7724A99DA500D4509F /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		1AFEEE312550689300F0D6D4 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +116,8 @@
 		1ADB1A7224A99DA500D4509F /* Classse */ = {
 			isa = PBXGroup;
 			children = (
-				1ADB1A7424A99DA500D4509F /* JPSwiftConstont.swift */,
-				1ADB1A7324A99DA500D4509F /* JPBounceButton.swift */,
+				1AFEEE312550689300F0D6D4 /* Const.swift */,
+				1ADB1A7324A99DA500D4509F /* BounceButton.swift */,
 				1ADB1A7524A99DA500D4509F /* Player */,
 			);
 			path = Classse;
@@ -126,9 +126,9 @@
 		1ADB1A7524A99DA500D4509F /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				1ADB1A7624A99DA500D4509F /* JPPlayerControlView.swift */,
-				1ADB1A7724A99DA500D4509F /* JPPlayerView.swift */,
-				1ADB1A7824A99DA500D4509F /* JPPlayerViewController.swift */,
+				1ADB1A7624A99DA500D4509F /* PlayerControlView.swift */,
+				1ADB1A7724A99DA500D4509F /* PlayerView.swift */,
+				1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -210,16 +210,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1ADB1A7B24A99DA500D4509F /* JPPlayerControlView.swift in Sources */,
+				1ADB1A7B24A99DA500D4509F /* PlayerControlView.swift in Sources */,
 				1A5BB68124A345EA00368BEF /* ViewController.swift in Sources */,
 				1ADB1A5624A8DB8B00D4509F /* iPhone11ViewController.swift in Sources */,
-				1ADB1A7C24A99DA500D4509F /* JPPlayerView.swift in Sources */,
+				1ADB1A7C24A99DA500D4509F /* PlayerView.swift in Sources */,
 				1A5BB67D24A345EA00368BEF /* AppDelegate.swift in Sources */,
-				1ADB1A7A24A99DA500D4509F /* JPSwiftConstont.swift in Sources */,
-				1ADB1A7D24A99DA500D4509F /* JPPlayerViewController.swift in Sources */,
+				1AFEEE332550689300F0D6D4 /* Const.swift in Sources */,
+				1ADB1A7D24A99DA500D4509F /* PlayerViewController.swift in Sources */,
 				1A5BB67F24A345EA00368BEF /* SceneDelegate.swift in Sources */,
 				1ADB1A4824A8D8E100D4509F /* iPhone11ProViewController.swift in Sources */,
-				1ADB1A7924A99DA500D4509F /* JPBounceButton.swift in Sources */,
+				1ADB1A7924A99DA500D4509F /* BounceButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QP8CCXZ5J8;
+				DEVELOPMENT_TEAM = FH4WHYK8ZQ;
 				INFOPLIST_FILE = JPPictureInPictureDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
