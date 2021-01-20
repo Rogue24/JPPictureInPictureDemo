@@ -1,5 +1,5 @@
 //
-//  BounceButton.swift
+//  FunButton.swift
 //  JPPictureInPictureDemo
 //
 //  Created by 周健平 on 2020/6/24.
@@ -7,17 +7,16 @@
 
 import UIKit
 
-class BounceButton: UIButton {
-    
-    private let bgView : UIView = UIView()
-    private let label0 : UILabel = UILabel()
-    private let label1 : UILabel = UILabel()
-    private let label2 : UILabel = UILabel()
-    private lazy var impactFeedbacker : UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+class FunButton: UIButton {
+    private let bgView: UIView = UIView()
+    private let label0: UILabel = UILabel()
+    private let label1: UILabel = UILabel()
+    private let label2: UILabel = UILabel()
+    private lazy var impactFeedbacker: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
 
-    private var _isTouching : Bool = false
+    private var _isTouching: Bool = false
     // private(set)：读公有，写私有
-    private(set) var isTouching : Bool {
+    private(set) var isTouching: Bool {
         set {
             if _isTouching == newValue { return }
             _isTouching = newValue
@@ -35,8 +34,8 @@ class BounceButton: UIButton {
                     self.label2.transform = transform2
                 })
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.12) { [weak self] in
-                    guard let btn = self, btn.isTouching else { return }
-                    btn.label0.text = "Free"
+                    guard let self = self, self.isTouching else {return}
+                    self.label0.text = "Free"
                 }
             } else {
                 label0.text = "Tap"
@@ -53,17 +52,20 @@ class BounceButton: UIButton {
         get { _isTouching }
     }
     
-    var touchUpInside : (() -> Void)?
+    var touchUpInside: (() -> ())?
     
-    class func bounceButton() -> Self {
+    class func build(_ touchUpInside: (() -> Void)? = nil) -> FunButton {
         let btn = self.init(type: .custom)
         btn.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
-        btn.__setupUI()
-        btn.__setupAction()
+        btn._setupUI()
+        btn._setupAction()
+        btn.touchUpInside = touchUpInside
         return btn
     }
-    
-    private func __setupUI() {
+}
+
+private extension FunButton {
+    func _setupUI() {
         bgView.frame = bounds
         bgView.layer.cornerRadius = 20
         bgView.layer.borderWidth = 0
@@ -97,24 +99,24 @@ class BounceButton: UIButton {
         insertSubview(label2, belowSubview: label1)
     }
     
-    private func __setupAction() {
-        addTarget(self, action: #selector(__beginTouch), for: .touchDown)
-        addTarget(self, action: #selector(__beginTouch), for: .touchDragInside)
-        addTarget(self, action: #selector(__endTouch), for: .touchDragOutside)
-        addTarget(self, action: #selector(__endTouch), for: .touchUpOutside)
-        addTarget(self, action: #selector(__endTouch), for: .touchCancel)
-        addTarget(self, action: #selector(__touchUpInside), for: .touchUpInside)
+    func _setupAction() {
+        addTarget(self, action: #selector(_beginTouch), for: .touchDown)
+        addTarget(self, action: #selector(_beginTouch), for: .touchDragInside)
+        addTarget(self, action: #selector(_endTouch), for: .touchDragOutside)
+        addTarget(self, action: #selector(_endTouch), for: .touchUpOutside)
+        addTarget(self, action: #selector(_endTouch), for: .touchCancel)
+        addTarget(self, action: #selector(_touchUpInside), for: .touchUpInside)
     }
     
-    @objc fileprivate func __beginTouch() {
+    @objc func _beginTouch() {
         isTouching = true
     }
     
-    @objc fileprivate func __endTouch() {
+    @objc func _endTouch() {
         isTouching = false
     }
     
-    @objc fileprivate func __touchUpInside() {
+    @objc func _touchUpInside() {
         isTouching = false
         touchUpInside?()
     }

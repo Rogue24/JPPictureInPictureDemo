@@ -15,25 +15,17 @@ class ViewController: UIViewController {
         
         title = "Hi"
         
-        let btn0 = BounceButton.bounceButton()
+        let btn0 = FunButton.build { [weak self] in self?.pushPlayerVC(false) }
         btn0.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.3)
         view.addSubview(btn0)
         
-        let btn1 = BounceButton.bounceButton()
+        let btn1 = FunButton.build { [weak self] in self?.pushPlayerVC(true) }
         btn1.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.7)
         view.addSubview(btn1)
-        
-        btn0.touchUpInside = { [weak self] in
-            self?.__pushPlayerVC(false)
-        }
-        
-        btn1.touchUpInside = { [weak self] in
-            self?.__pushPlayerVC(true)
-        }
     }
     
-    func __pushPlayerVC(_ isPro: Bool) {
-        guard let navCtr = self.navigationController else { return }
+    func pushPlayerVC(_ isPro: Bool) {
+        guard let navCtr = self.navigationController else {return}
         if let playerVC = playerVC_ {
             let videoPath = isPro ? iPhone11ProViewController.videoPath() : iPhone11ViewController.videoPath()
             if playerVC.videoPath == videoPath {

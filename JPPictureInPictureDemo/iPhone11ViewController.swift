@@ -11,28 +11,30 @@ class iPhone11ViewController: PlayerViewController {
 
     class func videoPath() -> String { Bundle.main.path(forResource: "iphone-11", ofType: "mp4")! }
     
-    fileprivate let shadowLayer : CALayer = CALayer()
+    fileprivate let shadowLayer: CALayer = CALayer()
     
-    fileprivate var imagePaths : [UIImage] = []
-    fileprivate var _imageIndex : Int = 0
+    fileprivate var imagePaths: [UIImage] = []
+    fileprivate var _imageIndex: Int = 0
     
-    private let bgImgView : UIImageView = {
+    private var _isDidAppear = false
+    
+    private let bgImgView: UIImageView = {
         let bgImgView = UIImageView(frame: UIScreen.main.bounds)
         bgImgView.contentMode = .scaleAspectFill
         bgImgView.backgroundColor = .white
         return bgImgView
     }()
     
-    private let iPhoneLabel : UILabel = {
+    private let iPhoneLabel: UILabel = {
         let iPhoneLabel = UILabel()
         
-        let str : String = "iPhone 11"
+        let str: String = "iPhone 11"
         
         let shadow = NSShadow()
         shadow.shadowBlurRadius = 3
         shadow.shadowColor = UIColor(white: 0, alpha: 0.3)
         shadow.shadowOffset = CGSize(width: 0, height: 1)
-        let attributes : [NSAttributedString.Key : Any] =
+        let attributes: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 40),
              NSAttributedString.Key.foregroundColor: UIColor.systemPink,
              NSAttributedString.Key.shadow: shadow]
@@ -57,13 +59,13 @@ class iPhone11ViewController: PlayerViewController {
         return iPhoneLabel
     }()
     
-    private let subLabel : UILabel = {
+    private let subLabel: UILabel = {
         let subLabel = UILabel()
         let shadow = NSShadow()
         shadow.shadowBlurRadius = 3
         shadow.shadowColor = UIColor(white: 0, alpha: 0.3)
         shadow.shadowOffset = CGSize(width: 0, height: 1)
-        let attributes : [NSAttributedString.Key : Any] =
+        let attributes: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
              NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.shadow: shadow]
@@ -74,13 +76,9 @@ class iPhone11ViewController: PlayerViewController {
         return subLabel
     }()
     
-    private var _isDidAppear = false
-    
-    fileprivate var workItem: DispatchWorkItem?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        __setupUI()
+        _setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,16 +87,16 @@ class iPhone11ViewController: PlayerViewController {
         if _isDidAppear { return }
         
         DispatchQueue.global().async {
-            let image0 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_0", ofType: "jpg")!)!
-            let image1 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_1", ofType: "jpg")!)!
-            let image2 : UIImage = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_2", ofType: "jpg")!)!
+            let image0 = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_0", ofType: "jpg")!)!
+            let image1 = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_1", ofType: "jpg")!)!
+            let image2 = UIImage(contentsOfFile: Bundle.main.path(forResource: "iphone-11_2", ofType: "jpg")!)!
             
             self.imagePaths.append(image0)
             self.imagePaths.append(image1)
             self.imagePaths.append(image2)
             
             DispatchQueue.main.async { [weak self] in
-                self?.__loopAnimation(delay: 0)
+                self?._loopAnimation(delay: 0)
             }
         }
     }
@@ -111,31 +109,28 @@ class iPhone11ViewController: PlayerViewController {
         
         UIView.animate(withDuration: 1, delay: 1, options: [], animations: {
             self.iPhoneLabel.alpha = 1
-        }, completion: { (finish) in
-            if finish {
-                UIView.animate(withDuration: 1, animations: {
-                    self.subLabel.alpha = 1
-                })
-            }
+        }, completion: { finish in
+            guard finish else { return }
+            UIView.animate(withDuration: 1, animations: {
+                self.subLabel.alpha = 1
+            })
         })
         
         playerView.player?.play()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
-    
-    deinit { workItem?.cancel() }
 }
 
 // MARK:- 私有API
-extension iPhone11ViewController {
-    fileprivate func __setupUI() {
+private extension iPhone11ViewController {
+    func _setupUI() {
         view.backgroundColor = .white
         
-        let x : CGFloat = 16.0
-        let w : CGFloat = PortraitScreenWidth - 2 * x
-        let h : CGFloat = w * (9.0 / 16.0)
-        let y : CGFloat = PortraitScreenHeight * 0.3
+        let x: CGFloat = 16.0
+        let w: CGFloat = PortraitScreenWidth - 2 * x
+        let h: CGFloat = w * (9.0 / 16.0)
+        let y: CGFloat = PortraitScreenHeight * 0.3
         videoPath = iPhone11ViewController.videoPath()
         createPlayerView(CGRect(x: x, y: y, width: w, height: h),
                          videoURL: URL(fileURLWithPath: videoPath))
@@ -161,8 +156,8 @@ extension iPhone11ViewController {
         view.addSubview(subLabel)
     }
     
-    fileprivate func __loopAnimation(delay: TimeInterval) {
-        let workItem = DispatchWorkItem { [weak self] in
+    func _loopAnimation(delay: TimeInterval) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) { [weak self] in
             guard let self = self else { return }
             if self._imageIndex >= self.imagePaths.count {
                 self._imageIndex = 0
@@ -171,14 +166,11 @@ extension iPhone11ViewController {
             UIView.transition(with: self.bgImgView, duration: 3.0, options: .transitionCrossDissolve, animations: {
                 self.bgImgView.image = bgImage
             }) { finish in
-                if finish {
-                    self._imageIndex += 1
-                    self.__loopAnimation(delay: 10.0)
-                }
+                guard finish else { return }
+                self._imageIndex += 1
+                self._loopAnimation(delay: 10.0)
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: workItem)
-        self.workItem = workItem
     }
 }
 

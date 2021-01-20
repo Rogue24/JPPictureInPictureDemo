@@ -1,8 +1,8 @@
 //
-//  Const.swift
-//  Neves_Example
+//  Constont.swift
+//  JPPictureInPictureDemo
 //
-//  Created by 周健平 on 2020/10/9.
+//  Created by 周健平 on 2020/2/28.
 //  Copyright © 2020 CocoaPods. All rights reserved.
 //
 
@@ -36,11 +36,26 @@ let NavTopMargin: CGFloat = StatusBarH + NavBarH
 let BasisWScale: CGFloat = PortraitScreenWidth / 375.0
 let BasisHScale: CGFloat = PortraitScreenHeight / 667.0
 
-let SeparateLineThick: CGFloat = ScreenScale > 2 ? 0.333 : 0.5;
-
-let AspectRatio_16_9: CGFloat = 16.0 / 9.0
-let AspectRatio_9_16: CGFloat = 9.0 / 16.0
+func swapValues<T>(_ a: inout T, _ b: inout T) {
+    (a, b) = (b, a)
+}
 
 func ScaleValue(_ value: CGFloat) -> CGFloat {
     value * BasisWScale
+}
+
+func ScaleValue(_ value: Double) -> CGFloat {
+    CGFloat(value) * BasisWScale
+}
+
+func ScaleValue(_ value: Float) -> CGFloat {
+    CGFloat(value) * BasisWScale
+}
+
+func ScaleValue(_ value: Int) -> CGFloat {
+    CGFloat(value) * BasisWScale
+}
+
+func HalfDiffValue(_ superValue: CGFloat, _ subValue: CGFloat) -> CGFloat {
+    (superValue - subValue) * 0.5
 }

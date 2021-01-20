@@ -13,6 +13,8 @@
 		1A5BB68424A345EA00368BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5BB68224A345EA00368BEF /* Main.storyboard */; };
 		1A5BB68624A345EA00368BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A5BB68524A345EA00368BEF /* Assets.xcassets */; };
 		1A5BB68924A345EA00368BEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5BB68724A345EA00368BEF /* LaunchScreen.storyboard */; };
+		1A8B41FA25B85FA300982216 /* Constont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B41F825B85FA300982216 /* Constont.swift */; };
+		1A8B41FB25B85FA300982216 /* FunButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B41F925B85FA300982216 /* FunButton.swift */; };
 		1ADB1A4824A8D8E100D4509F /* iPhone11ProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A4724A8D8E100D4509F /* iPhone11ProViewController.swift */; };
 		1ADB1A5624A8DB8B00D4509F /* iPhone11ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5524A8DB8B00D4509F /* iPhone11ViewController.swift */; };
 		1ADB1A5824A8DD5200D4509F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5724A8DD5200D4509F /* README.md */; };
@@ -22,11 +24,9 @@
 		1ADB1A6A24A99D3200D4509F /* iphone-11_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5D24A99D3200D4509F /* iphone-11_0.jpg */; };
 		1ADB1A6B24A99D3200D4509F /* iphone-11_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5E24A99D3200D4509F /* iphone-11_2.jpg */; };
 		1ADB1A6C24A99D3200D4509F /* iphone-11.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1ADB1A5F24A99D3200D4509F /* iphone-11.mp4 */; };
-		1ADB1A7924A99DA500D4509F /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7324A99DA500D4509F /* BounceButton.swift */; };
 		1ADB1A7B24A99DA500D4509F /* PlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7624A99DA500D4509F /* PlayerControlView.swift */; };
 		1ADB1A7C24A99DA500D4509F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7724A99DA500D4509F /* PlayerView.swift */; };
 		1ADB1A7D24A99DA500D4509F /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */; };
-		1AFEEE332550689300F0D6D4 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFEEE312550689300F0D6D4 /* Const.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +38,8 @@
 		1A5BB68524A345EA00368BEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A5BB68824A345EA00368BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A5BB68A24A345EA00368BEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A8B41F825B85FA300982216 /* Constont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constont.swift; sourceTree = "<group>"; };
+		1A8B41F925B85FA300982216 /* FunButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunButton.swift; sourceTree = "<group>"; };
 		1ADB1A4724A8D8E100D4509F /* iPhone11ProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhone11ProViewController.swift; sourceTree = "<group>"; };
 		1ADB1A5524A8DB8B00D4509F /* iPhone11ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhone11ViewController.swift; sourceTree = "<group>"; };
 		1ADB1A5724A8DD5200D4509F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -47,11 +49,9 @@
 		1ADB1A5D24A99D3200D4509F /* iphone-11_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_0.jpg"; sourceTree = "<group>"; };
 		1ADB1A5E24A99D3200D4509F /* iphone-11_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iphone-11_2.jpg"; sourceTree = "<group>"; };
 		1ADB1A5F24A99D3200D4509F /* iphone-11.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iphone-11.mp4"; sourceTree = "<group>"; };
-		1ADB1A7324A99DA500D4509F /* BounceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceButton.swift; sourceTree = "<group>"; };
 		1ADB1A7624A99DA500D4509F /* PlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControlView.swift; sourceTree = "<group>"; };
 		1ADB1A7724A99DA500D4509F /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		1AFEEE312550689300F0D6D4 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +116,8 @@
 		1ADB1A7224A99DA500D4509F /* Classse */ = {
 			isa = PBXGroup;
 			children = (
-				1AFEEE312550689300F0D6D4 /* Const.swift */,
-				1ADB1A7324A99DA500D4509F /* BounceButton.swift */,
+				1A8B41F825B85FA300982216 /* Constont.swift */,
+				1A8B41F925B85FA300982216 /* FunButton.swift */,
 				1ADB1A7524A99DA500D4509F /* Player */,
 			);
 			path = Classse;
@@ -126,9 +126,9 @@
 		1ADB1A7524A99DA500D4509F /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */,
 				1ADB1A7624A99DA500D4509F /* PlayerControlView.swift */,
 				1ADB1A7724A99DA500D4509F /* PlayerView.swift */,
-				1ADB1A7824A99DA500D4509F /* PlayerViewController.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -210,16 +210,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A8B41FA25B85FA300982216 /* Constont.swift in Sources */,
 				1ADB1A7B24A99DA500D4509F /* PlayerControlView.swift in Sources */,
 				1A5BB68124A345EA00368BEF /* ViewController.swift in Sources */,
 				1ADB1A5624A8DB8B00D4509F /* iPhone11ViewController.swift in Sources */,
 				1ADB1A7C24A99DA500D4509F /* PlayerView.swift in Sources */,
+				1A8B41FB25B85FA300982216 /* FunButton.swift in Sources */,
 				1A5BB67D24A345EA00368BEF /* AppDelegate.swift in Sources */,
-				1AFEEE332550689300F0D6D4 /* Const.swift in Sources */,
 				1ADB1A7D24A99DA500D4509F /* PlayerViewController.swift in Sources */,
 				1A5BB67F24A345EA00368BEF /* SceneDelegate.swift in Sources */,
 				1ADB1A4824A8D8E100D4509F /* iPhone11ProViewController.swift in Sources */,
-				1ADB1A7924A99DA500D4509F /* BounceButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

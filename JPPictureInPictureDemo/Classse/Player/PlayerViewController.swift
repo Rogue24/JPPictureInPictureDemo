@@ -8,19 +8,19 @@
 import UIKit
 import AVKit
 
-var playerVC_ : PlayerViewController?
+var playerVC_: PlayerViewController?
 
 class PlayerViewController: UIViewController {
     
     var videoPath: String!
-    var playerView : PlayerView!
+    var playerView: PlayerView!
     
-    var pipCtr : AVPictureInPictureController?
-    fileprivate var stopPipComplete : (()->())?
+    var pipCtr: AVPictureInPictureController?
+    private var stopPipComplete: (() -> ())?
     
-    weak var navCtr : UINavigationController?
+    private weak var navCtr: UINavigationController?
     
-    let backBtn : UIButton = {
+    private let backBtn: UIButton = {
         let backBtn = UIButton(type: .system)
         backBtn.setImage(UIImage(named: "com_left_white_icon"), for: .normal)
         backBtn.frame = CGRect(x: 0, y: StatusBarH, width: NavBarH, height: NavBarH)
@@ -31,7 +31,7 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.clipsToBounds = true
-        backBtn.addTarget(self, action: #selector(__backAction), for: .touchUpInside)
+        backBtn.addTarget(self, action: #selector(_backAction), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +48,7 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    @objc private func __backAction() {
+    @objc private func _backAction() {
         navigationController?.popViewController(animated: true)
     }
 }
@@ -84,7 +84,7 @@ extension PlayerViewController {
 }
 
 // MARK:- <AVPictureInPictureControllerDelegate>
-extension PlayerViewController : AVPictureInPictureControllerDelegate {
+extension PlayerViewController: AVPictureInPictureControllerDelegate {
     /**
         @method        pictureInPictureControllerWillStartPictureInPicture:
         @param        pictureInPictureController
@@ -142,7 +142,7 @@ extension PlayerViewController : AVPictureInPictureControllerDelegate {
     func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
         print("pictureInPictureControllerDidStopPictureInPicture")
         playerVC_ = nil
-        if let complete = stopPipComplete { complete() }
+        stopPipComplete?()
         stopPipComplete = nil
     }
 
@@ -158,9 +158,7 @@ extension PlayerViewController : AVPictureInPictureControllerDelegate {
     func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
         print("restoreUserInterfaceForPictureInPictureStopWithCompletionHandler")
         
-        if stopPipComplete == nil,
-           let navCtr = navCtr,
-           navCtr.viewControllers.contains(self) != true {
+        if stopPipComplete == nil, let navCtr = navCtr, !navCtr.viewControllers.contains(self) {
             
             playerVC_ = nil
             navCtr.pushViewController(self, animated: true)

@@ -10,29 +10,29 @@ import AVKit
 
 class PlayerControlView: UIView {
     
-    let progressView : UIProgressView
+    let progressView: UIProgressView
     
-    var progress : Float {
+    var progress: Float {
         set {
             progressView.progress = newValue < 0 ? 0 : (newValue > 1 ? 1 : newValue)
+            
             let alpha : CGFloat = (newValue <= 0 || newValue >= 1) ? 0 : 1
-            if progressView.alpha != alpha {
-                UIView.animate(withDuration: 0.5) {
-                    self.progressView.alpha = alpha
-                }
+            guard progressView.alpha != alpha else { return }
+            UIView.animate(withDuration: 0.5) {
+                self.progressView.alpha = alpha
             }
         }
         get { progressView.progress }
     }
     
-    let blurView : UIVisualEffectView
+    let blurView: UIVisualEffectView
     
-    let resumeBtn : UIButton
+    let resumeBtn: UIButton
     
-    var pipBtn : UIButton?
+    var pipBtn: UIButton?
     
-    fileprivate var _isShowResumeBtn : Bool = true
-    var isShowResumeBtn : Bool {
+    fileprivate var _isShowResumeBtn: Bool = true
+    var isShowResumeBtn: Bool {
         set {
             if _isShowResumeBtn == newValue { return }
             _isShowResumeBtn = newValue
